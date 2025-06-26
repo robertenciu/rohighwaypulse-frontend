@@ -1,12 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
-import HighwaysPreviews from './components/HighwaysPreviews';
+import AllHighwaysPage from './pages/AllHighwaysPage';
+import Layout from './components/Layout'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <HighwaysPreviews/>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          {/* <Route index element={} /> */}
+          <Route path="highways" element={< AllHighwaysPage />} />
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 
