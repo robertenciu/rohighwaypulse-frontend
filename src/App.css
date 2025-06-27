@@ -60,11 +60,45 @@ body {
   backdrop-filter: blur(10px) brightness(0.4);
   text-shadow: 0 0 5px rgba(0,0,0,0.5);
   color: white;
-  font-size: 16px;
+  font-size: 20px;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
   box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.65);
 }
 .nav a {
   color: white !important;
   font-weight: bold;
   text-decoration: none;
+}
+.fade-in {
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.card-hover {
+  transition: transform 0.3s ease;
+}
+.card-hover:hover {
+  transform: scale(1.07);
+}
+
+.hr {
+  width: 0%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 2px;
+  background-color: black;
+  animation: fill-hr 1s ease forwards;
+}
+@keyframes fill-hr {
+  to {
+    width: 50%;
+  }
 }

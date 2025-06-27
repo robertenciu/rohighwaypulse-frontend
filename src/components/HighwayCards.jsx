@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Container, Row, Col } from 'react-bootstrap';
+import HighwayDetailedCard from './HighwayDetailedCard';
 import "@fontsource/jetbrains-mono";
 
-function HighwayPreviews() {
+function HighwayCards() {
   const [highways, setHighways] = useState([]);
+  const [selectedHighway, setSelectedHighway] = useState(null)
 
   useEffect(() => {
     fetch("http://localhost:8080/highways")
@@ -24,9 +26,7 @@ function HighwayPreviews() {
 			justifyContent: 'center',
 			fontSize: '3rem',
 			fontWeight: 'bold',
-			height: '180px',
-			borderTopLeftRadius: '1.5rem',
-			borderTopRightRadius: '1.5rem'
+			height: '180px'
 		}}>
 			{name}
         </div>
@@ -42,9 +42,7 @@ function HighwayPreviews() {
 			justifyContent: 'center',
 			fontSize: '3rem',
 			fontWeight: 'bold',
-			height: '180px',
-			borderTopLeftRadius: '1.5rem',
-			borderTopRightRadius: '1.5rem'
+			height: '180px'
 		}}>
 			{name}
         </div>
@@ -56,18 +54,16 @@ function HighwayPreviews() {
     <Container fluid style={{width: '70%'}}>
       <Row className="g-4 justify-content-center" xs={1} sm={2} md={3} lg={4} >
         {highways.map((hw, index) => (
-          <Col>
-            <Card className="shadow-sm" style={{
-				background: 'radial-gradient(circle,rgba(235, 235, 169, 1) 1%, rgba(209, 142, 142, 0.56) 60%, rgba(191, 172, 124, 0.58) 100%)',
-				borderTopLeftRadius: '1.5rem',
-				borderTopRightRadius: '1.5rem',
+          <Col className='fade-in' style={{ animationDelay: `${index * 0.1}s` }}>
+            <Card className="shadow-sm card-hover" style={{
+				background: 'radial-gradient(circle,rgba(235, 235, 169, 0.9) 1%, rgba(209, 142, 142, 0.82) 50%, rgba(191, 172, 124, 0.85) 100%)',
+				borderTopLeftRadius: '0rem',
+				borderTopRightRadius: '0rem'
 			}}
-			onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.07)')}
-  			onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
-			>
+			onClick={() => {setSelectedHighway(hw)}
+			}>
 				{isDex(hw.name)}
 				<Card.Body>
-					<Card.Title>{hw.status}</Card.Title>
 					<Card.Text
 						style={{
 							fontFamily: "'Josefin Sans', sans-serif",
@@ -97,17 +93,43 @@ function HighwayPreviews() {
 						</div>
 					</Card.Text>
 				</Card.Body>
-				<Card.Footer style={{fontFamily: "'JetBrains Mono', monospace" , fontWeight: 'bold', fontSize: '17px'}}>
+				<Card.Footer style={{fontFamily: "'JetBrains Mono', monospace" , fontWeight: 'bold', fontSize: '17px', textAlign: 'center'}}>
 					{hw.length} km
 				</Card.Footer>
-                
             </Card>
         </Col>
         ))}
       </Row>
     </Container>
+	{selectedHighway && (
+  <div
+    onClick={() => setSelectedHighway(null)} // click în afara cardului închide overlayul
+    style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: 'rgba(0, 0, 0, 0.35)',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}
+  >
+    <div
+      onClick={(e) => e.stopPropagation()} // prevenim propagarea clickului
+      style={{
+        maxWidth: '90%',
+        maxHeight: '90%',
+        overflowY: 'auto',
+      }}
+    >
+      <HighwayDetailedCard highway={selectedHighway} onClose={() => setSelectedHighway(null)} />
+    </div>
+  </div>
+)}
 	</>
   );
 }
 
-export default HighwayPreviews;
+export default HighwayCards;
