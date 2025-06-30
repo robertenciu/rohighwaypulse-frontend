@@ -1,0 +1,17 @@
+.highwaySign {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: bold;
+  height: 180px;
+}
+.cardText {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}

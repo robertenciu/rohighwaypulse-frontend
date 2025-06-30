@@ -1,0 +1,20 @@
+.highwaySign {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: bold;
+  min-height: 250px;
+  width: 25%;
+  flex-shrink: 0;
+}
+.cardDescription {
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.5rem;
+}

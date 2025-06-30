@@ -56,19 +56,17 @@ body {
   padding: 16px 20px 30px 20px;
   display: flex;
   align-items: center;
-  transition: 0.3s ease-out;
   backdrop-filter: blur(10px) brightness(0.4);
+  box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.65);
   text-shadow: 0 0 5px rgba(0,0,0,0.5);
   color: white;
   font-size: 20px;
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
-  box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.65);
 }
 .nav a {
   color: white !important;
-  font-weight: bold;
   text-decoration: none;
 }
 .fade-in {
@@ -83,10 +81,29 @@ body {
   }
 }
 .card-hover {
+  background: #ABBAAB;
+  background: linear-gradient(90deg,rgba(171, 186, 171, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%) !important;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-width: 0 !important;
   transition: transform 0.3s ease;
 }
 .card-hover:hover {
   transform: scale(1.07);
+}
+.card-detailed {
+  box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.65);
+  border: none !important;
+  background: #ABBAAB;
+  background: linear-gradient(90deg,rgba(171, 186, 171, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%) !important;
+  width: 90%;
+  max-height: 90%;
+  overflow-y: auto;
+  animation:pop-in 0.5s;
+}
+@keyframes pop-in {
+     0% { opacity: 0; transform: scale(0.1); }
+     100% { opacity: 1; transform: scale(1); }
 }
 
 .hr {
@@ -97,8 +114,58 @@ body {
   background-color: black;
   animation: fill-hr 1s ease forwards;
 }
+.hr-detailed-card {
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-top: 0;
+  width: 0%;
+  height: 2px;
+  background-color: black;
+  animation: fill-hr-dt-card 1s ease forwards;
+}
 @keyframes fill-hr {
   to {
     width: 50%;
   }
+}
+@keyframes fill-hr-dt-card {
+  to {
+    width: 100%;
+  }
+}
+.bordered-right-animated {
+  position: relative;
+}
+
+.bordered-right-animated::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 2px;
+  height: 0;
+  background-color: rgba(0,0,0,0.3);
+  animation: growBorder 1s ease forwards;
+  transform: translateY(-50%);
+}
+
+@keyframes growBorder {
+  from {
+    height: 0%;
+  }
+  to {
+    height: 100%;
+  }
+}
+
+
+
+
+.align-text-center {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  text-align: center;
 }

@@ -1,18 +1,20 @@
-import './App.css';
-import AllHighwaysPage from './pages/AllHighwaysPage';
-import Layout from './components/Layout'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import "./App.css";
+import AllHighwaysPage from "./pages/AllHighwaysPage";
+import HighwayCards from "./components/HighwayCards";
+import Layout from "./components/Layout";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
           {/* <Route index element={} /> */}
-          <Route path="highways" element={< AllHighwaysPage />} />
+          <Route path="highways/:name?" element={<AllHighwaysPage />} />
+          {/* <Route path="/highways/:name?" element={<AllHighwaysPage />} /> */}
         </Route>
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 
