@@ -18,6 +18,7 @@ function HighwayDetailedCard({ highway, onClose }) {
       .then((data) => setDetailedHighway(data))
       .catch((error) => console.error("Eroare la fetch:", error));
   }, []);
+
   if (!detailedHighway) {
     return;
   }
@@ -39,18 +40,7 @@ function HighwayDetailedCard({ highway, onClose }) {
         </div>
       </div>
       <hr className="hr-detailed-card"></hr>
-      <Card.Body
-        style={{
-          overflowX: "hidden",
-          paddingTop: 0,
-          paddingRight: 0,
-          paddingLeft: 0,
-          marginLeft: 0,
-          marginRight: 0,
-          fontSize: "2.3rem",
-          fontFamily: "'JetBrains Mono', monospace",
-        }}
-      >
+      <Card.Body className={`${styles.cardBody}`}>
         <Row>
           <Col className="align-text-center">
             <IoMdConstruct style={{ marginRight: "10px" }} />
@@ -62,8 +52,8 @@ function HighwayDetailedCard({ highway, onClose }) {
             <ProgressBar
               animated
               variant="success"
-              now={now}
-              label={`${now}%`}
+              now={detailedHighway.percentageCompleted}
+              label={`${detailedHighway.percentageCompleted}%`}
               style={{ width: "50%", marginRight: "50px" }}
             />
             {detailedHighway.completedLength}/{detailedHighway.length} km.

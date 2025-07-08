@@ -1,0 +1,29 @@
+.form {
+  box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.65);
+  border: none !important;
+  background: #abbaab;
+  background: linear-gradient(
+    90deg,
+    rgba(171, 186, 171, 0.9) 0%,
+    rgba(255, 255, 255, 0.9) 100%
+  ) !important;
+  width: 30%;
+  min-height: 60%;
+  max-height: 90%;
+  overflow-y: auto;
+  animation: pop-in 0.5s;
+}
+.formText {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1rem;
+}
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

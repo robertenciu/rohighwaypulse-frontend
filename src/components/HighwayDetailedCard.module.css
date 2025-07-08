@@ -18,3 +18,14 @@
   font-family: "JetBrains Mono", monospace;
   font-size: 1.5rem;
 }
+
+.cardBody {
+  overflow-x: hidden;
+  padding-top: 0;
+  padding-right: 0;
+  padding-left: 0;
+  margin-left: 0;
+  margin-right: 0;
+  font-size: 2.3rem;
+  font-family: "JetBrains Mono", monospace;
+}

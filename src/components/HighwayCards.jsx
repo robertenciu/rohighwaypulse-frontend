@@ -30,7 +30,6 @@ function HighwayCards({ highways }) {
                   <Card.Text className={`${styles.cardText}`}>
                     <div
                       style={{
-                        flex: 1,
                         textAlign: "center",
                         flexDirection: "column",
                       }}
@@ -62,14 +61,7 @@ function HighwayCards({ highways }) {
                     </div>
                   </Card.Text>
                 </Card.Body>
-                <Card.Footer
-                  style={{
-                    fontFamily: "'JetBrains Mono', monospace",
-                    fontWeight: "bold",
-                    fontSize: "17px",
-                    textAlign: "center",
-                  }}
-                >
+                <Card.Footer className={`${styles.cardFooter}`}>
                   {hw.length} km
                 </Card.Footer>
               </Card>
