@@ -6,7 +6,7 @@ import { Card, Container, Row, Col } from "react-bootstrap";
 import styles from "./Registration.module.css";
 import { ReactComponent as Logo } from "./Logo.svg";
 
-function Registration({ onClose }) {
+function SignUpUser({ onClose }) {
   return (
     <Card className={`${styles.form}`} onClick={(e) => e.stopPropagation()}>
       <CloseButton onClick={onClose} />
@@ -16,18 +16,46 @@ function Registration({ onClose }) {
           textAlign: "center",
           fontSize: "2.5rem",
           paddingTop: "30px",
+          marginBottom: "30px",
         }}
       >
         <Logo style={{ height: "73px", width: "120px" }} />
       </div>
 
       <Form className={`${styles.formText}`}>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label style={{ color: "#198754" }}>Email address</Form.Label>
-          <hr className="hr-detailed-card" style={{ margin: "auto" }}></hr>
+        {/* First Row: First Name & Last Name */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "10px",
+            maxWidth: "400px",
+            margin: "10px auto",
+          }}
+        >
           <Form.Control
-            type="email"
-            placeholder="Enter email or username"
+            type="text"
+            placeholder="First Name"
+            style={{
+              height: "40px",
+              width: "calc(50% - 5px)",
+            }}
+          />
+          <Form.Control
+            type="text"
+            placeholder="Last Name"
+            style={{
+              height: "40px",
+              width: "calc(50% - 5px)",
+            }}
+          />
+        </div>
+
+        {/* Username */}
+        <Form.Group controlId="formUsername">
+          <Form.Control
+            type="text"
+            placeholder="Username"
             style={{
               marginTop: "10px",
               width: "100%",
@@ -38,9 +66,23 @@ function Registration({ onClose }) {
           />
         </Form.Group>
 
+        {/* Email */}
+        <Form.Group controlId="formBasicEmail">
+          <Form.Control
+            type="email"
+            placeholder="Email"
+            style={{
+              marginTop: "10px",
+              width: "100%",
+              maxWidth: "400px",
+              margin: "10px auto",
+              height: "40px",
+            }}
+          />
+        </Form.Group>
+
+        {/* Password */}
         <Form.Group controlId="formBasicPassword">
-          <Form.Label style={{ color: "#198754" }}>Password</Form.Label>
-          <hr className="hr-detailed-card" style={{ margin: "auto" }}></hr>
           <Form.Control
             type="password"
             placeholder="Password"
@@ -53,6 +95,23 @@ function Registration({ onClose }) {
             }}
           />
         </Form.Group>
+
+        {/* Confirm Password */}
+        <Form.Group controlId="formConfirmPassword">
+          <Form.Control
+            type="password"
+            placeholder="Confirm Password"
+            style={{
+              marginTop: "10px",
+              width: "100%",
+              maxWidth: "400px",
+              margin: "10px auto",
+              height: "40px",
+            }}
+          />
+        </Form.Group>
+
+        {/* Submit Button */}
         <div
           style={{
             display: "flex",
@@ -63,12 +122,6 @@ function Registration({ onClose }) {
         >
           <div className="my-2">
             <Button variant="success" style={{ width: "20rem" }}>
-              Log In
-            </Button>
-          </div>
-          <div className="my-2">
-            Dont have account? 
-            <Button variant="secondary mx-2" style={{ width: "7rem" }}>
               Sign Up
             </Button>
           </div>
@@ -78,4 +131,4 @@ function Registration({ onClose }) {
   );
 }
 
-export default Registration;
+export default SignUpUser;

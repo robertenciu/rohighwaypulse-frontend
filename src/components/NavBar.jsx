@@ -4,10 +4,12 @@ import logo from "./Logo.svg";
 import { ReactComponent as Logo } from "./Logo.svg";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import Registration from "./Registration";
+import SignInUser from "./SignInUser";
+import SignUpUser from "./SignUpUser";
 
 function NavBar() {
-  const [authenticationForm, setAuthenticationForm] = useState(false);
+  const [SignInForm, setSignInForm] = useState(false);
+  const [SignUpForm, setSignUpForm] = useState(false);
   return (
     <>
       <Navbar fixed="top" className="nav">
@@ -49,7 +51,7 @@ function NavBar() {
           {/* Autentificare */}
           <div>
             <span
-              onClick={(e) => setAuthenticationForm(true)}
+              onClick={(e) => setSignInForm(true)}
               style={{ cursor: "pointer" }}
             >
               <i
@@ -61,10 +63,10 @@ function NavBar() {
           </div>
         </Container>
       </Navbar>
-      {authenticationForm && (
+      {SignInForm && (
         <div
           onClick={() => {
-            setAuthenticationForm(false);
+            setSignInForm(false);
           }}
           style={{
             paddingTop: "80px",
@@ -81,11 +83,42 @@ function NavBar() {
             zIndex: 10,
           }}
         >
-          <Registration
+          <SignInUser
             onClose={() => {
-              setAuthenticationForm(false);
+              setSignInForm(false);
             }}
-          ></Registration>
+            switchToSignUp={() => {
+              setSignInForm(false);
+              setSignUpForm(true);
+            }}
+          ></SignInUser>
+        </div>
+      )}
+      {SignUpForm && (
+        <div
+          onClick={() => {
+            setSignUpForm(false);
+          }}
+          style={{
+            paddingTop: "80px",
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.35)",
+            backdropFilter: "blur(10px)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 10,
+          }}
+        >
+          <SignUpUser
+            onClose={() => {
+              setSignUpForm(false);
+            }}
+          ></SignUpUser>
         </div>
       )}
     </>
