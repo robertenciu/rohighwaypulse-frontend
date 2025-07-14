@@ -3,6 +3,7 @@ import { Card, Container, Row, Col } from "react-bootstrap";
 import styles from "./HighwayDetailedCard.module.css";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import CloseButton from "./CloseButton";
+import CommentsCard from "./CommentsCard";
 import { IoMdConstruct } from "react-icons/io";
 import { CiLocationArrow1 } from "react-icons/ci";
 import { GrMoney } from "react-icons/gr";
@@ -10,7 +11,7 @@ import { GiReceiveMoney } from "react-icons/gi";
 import "@fontsource/jetbrains-mono";
 import { isDex } from "../utils/highwayUtils";
 
-function HighwayDetailedCard({ highway, onClose }) {
+function HighwayDetailedCard({ highway, selectedComments, onClose }) {
   const [detailedHighway, setDetailedHighway] = useState(null);
   useEffect(() => {
     fetch(`http://localhost:8080/highways/${highway.name}`)
@@ -23,6 +24,29 @@ function HighwayDetailedCard({ highway, onClose }) {
     return;
   }
 
+  const dummyComments = [
+    {
+      firstName: "Maria",
+      lastName: "Ionescu",
+      avatar: "https://i.pravatar.cc/150?img=3",
+      rating: 4,
+      comment: "Un serviciu excelent! Recomand cu încredere.",
+    },
+    {
+      firstName: "Andrei",
+      lastName: "Popescu",
+      avatar: "https://i.pravatar.cc/150?img=5",
+      rating: 5,
+      comment: "Totul a decurs perfect. Comunicarea a fost impecabilă.",
+    },
+    {
+      firstName: "Elena",
+      lastName: "Marin",
+      avatar: "https://i.pravatar.cc/150?img=10",
+      rating: 3,
+      comment: "A fost ok, dar se poate și mai bine.",
+    },
+  ];
   const now = detailedHighway.percentageCompleted;
   return (
     <Card className="card-detailed" onClick={(e) => e.stopPropagation()}>
@@ -40,59 +64,67 @@ function HighwayDetailedCard({ highway, onClose }) {
         </div>
       </div>
       <hr className="hr-detailed-card"></hr>
-      <Card.Body className={`${styles.cardBody}`}>
-        <Row>
-          <Col className="align-text-center">
-            <IoMdConstruct style={{ marginRight: "10px" }} />
-            Status: {detailedHighway.status}
-          </Col>
-        </Row>
-        <Row>
-          <Col className="align-text-center">
-            <ProgressBar
-              animated
-              variant="success"
-              now={detailedHighway.percentageCompleted}
-              label={`${detailedHighway.percentageCompleted}%`}
-              style={{ width: "50%", marginRight: "50px" }}
-            />
-            {detailedHighway.completedLength}/{detailedHighway.length} km.
-          </Col>
-        </Row>
-        <hr className="hr-detailed-card"></hr>
-        <Row>
-          <Col className="align-text-center bordered-right-animated">
-            <CiLocationArrow1 />
-            Pornire: {detailedHighway.startCity}
-          </Col>
-          <Col className="align-text-center">
-            <CiLocationArrow1 />
-            Destinație: {detailedHighway.endCity}
-          </Col>
-        </Row>
-        <hr className="hr-detailed-card"></hr>
-        <Row>
-          <Col className="align-text-center bordered-right-animated">
-            <span>
-              <GrMoney style={{ marginRight: "10px" }} />
-              Buget: {detailedHighway.totalBudget}
-            </span>
-          </Col>
-          <Col className="align-text-center">
-            <span>
-              <GiReceiveMoney style={{ marginRight: "10px" }} />
-              Finanțare: {detailedHighway.fundingSource}
-            </span>
-          </Col>
-        </Row>
-        <hr className="hr-detailed-card"></hr>
-        <Row>
-          <Col className="align-text-center">
-            <i class="bi bi-calendar3" style={{ marginRight: "10px" }}></i>
-            An deschidere: {detailedHighway.estimatedCompletionYear}
-          </Col>
-        </Row>
-      </Card.Body>
+      {selectedComments ? (
+        <div>
+          {dummyComments.map((user, index) => (
+            <CommentsCard key={index} user={user} />
+          ))}
+        </div>
+      ) : (
+        <Card.Body className={`${styles.cardBody}`}>
+          <Row>
+            <Col className="align-text-center">
+              <IoMdConstruct style={{ marginRight: "10px" }} />
+              Status: {detailedHighway.status}
+            </Col>
+          </Row>
+          <Row>
+            <Col className="align-text-center">
+              <ProgressBar
+                animated
+                variant="success"
+                now={detailedHighway.percentageCompleted}
+                label={`${detailedHighway.percentageCompleted}%`}
+                style={{ width: "50%", marginRight: "50px" }}
+              />
+              {detailedHighway.completedLength}/{detailedHighway.length} km.
+            </Col>
+          </Row>
+          <hr className="hr-detailed-card"></hr>
+          <Row>
+            <Col className="align-text-center bordered-right-animated">
+              <CiLocationArrow1 />
+              Pornire: {detailedHighway.startCity}
+            </Col>
+            <Col className="align-text-center">
+              <CiLocationArrow1 />
+              Destinație: {detailedHighway.endCity}
+            </Col>
+          </Row>
+          <hr className="hr-detailed-card"></hr>
+          <Row>
+            <Col className="align-text-center bordered-right-animated">
+              <span>
+                <GrMoney style={{ marginRight: "10px" }} />
+                Buget: {detailedHighway.totalBudget}
+              </span>
+            </Col>
+            <Col className="align-text-center">
+              <span>
+                <GiReceiveMoney style={{ marginRight: "10px" }} />
+                Finanțare: {detailedHighway.fundingSource}
+              </span>
+            </Col>
+          </Row>
+          <hr className="hr-detailed-card"></hr>
+          <Row>
+            <Col className="align-text-center">
+              <i class="bi bi-calendar3" style={{ marginRight: "10px" }}></i>
+              An deschidere: {detailedHighway.estimatedCompletionYear}
+            </Col>
+          </Row>
+        </Card.Body>
+      )}
     </Card>
   );
 }

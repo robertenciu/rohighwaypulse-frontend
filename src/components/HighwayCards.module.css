@@ -6,6 +6,7 @@
   font-size: 3rem;
   font-weight: bold;
   height: 180px;
+  cursor: default;
 }
 .cardText {
   font-family: "Josefin Sans", sans-serif;
@@ -16,10 +17,28 @@
   align-items: center;
   text-align: center;
   justify-content: center;
+  cursor: default;
 }
 .cardFooter {
   font-family: "JetBrains Mono", monospace;
   font-weight: bold;
   font-size: 17px;
+  cursor: default;
   text-align: center;
+}
+.cardComments {
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #abbaab;
+  background: linear-gradient(
+    90deg,
+    rgba(171, 186, 171, 0.9) 0%,
+    rgba(255, 255, 255, 0.9) 100%
+  ) !important;
+  border-radius: 2rem;
+  font-size: 1.3rem;
+  padding-left: 10px;
+  padding-right: 10px;
 }

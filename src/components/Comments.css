@@ -1,0 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+.comment-card {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  padding: 1rem;
+}
+
+.left-section {
+  width: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #ddd;
+}
+
+.avatar {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 15%;
+}
+
+.user-info {
+  text-align: center;
+  width: 40%;
+  font-family: "Montserrat", sans-serif;
+}
+
+.rating {
+  color: green;
+  font-size: 1.2rem;
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 75%;
+  position: relative;
+  padding-right: 0;
+}
+
+.comment-text {
+  font-size: 1rem;
+  font-family: "Montserrat", sans-serif;
+  color: #000;
+}
+.comment-date {
+  position: absolute;
+  right: 10px;
+}

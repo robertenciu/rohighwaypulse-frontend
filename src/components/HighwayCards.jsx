@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Card, Container, Row, Col } from "react-bootstrap";
 import styles from "./HighwayCards.module.css";
 import HighwayDetailedCard from "./HighwayDetailedCard";
+import CommentsCard from "./CommentsCard";
 import "@fontsource/jetbrains-mono";
 import { useParams, useNavigate } from "react-router-dom";
 import { isDex } from "../utils/highwayUtils";
 
 function HighwayCards({ highways }) {
   const [selectedHighway, setSelectedHighway] = useState(null);
+  const [selectedComments, setSelectedComments] = useState(false);
   return (
     <>
       <Container fluid style={{ width: "70%" }}>
@@ -23,6 +25,14 @@ function HighwayCards({ highways }) {
                   setSelectedHighway(hw);
                 }}
               >
+                <div
+                  className={styles.cardComments}
+                  onClick={() => {
+                    setSelectedComments(true), setSelectedHighway(hw);
+                  }}
+                >
+                  <i className="bi bi-chat-dots"> Comments</i>
+                </div>
                 <div className={styles.highwaySign} style={isDex(hw.name)}>
                   {hw.name}
                 </div>
@@ -73,6 +83,7 @@ function HighwayCards({ highways }) {
         <div
           onClick={() => {
             setSelectedHighway(null);
+            setSelectedComments(false);
           }}
           style={{
             paddingTop: "80px",
@@ -90,8 +101,10 @@ function HighwayCards({ highways }) {
         >
           <HighwayDetailedCard
             highway={selectedHighway}
+            selectedComments={selectedComments}
             onClose={() => {
               setSelectedHighway(null);
+              setSelectedComments(false);
             }}
           />
         </div>
