@@ -3,6 +3,7 @@
   display: flex;
   border-bottom: 1px solid #ddd;
   padding: 1rem;
+  font-family: "Montserrat", sans-serif;
 }
 
 .left-section {
@@ -23,7 +24,6 @@
 .user-info {
   text-align: center;
   width: 40%;
-  font-family: "Montserrat", sans-serif;
 }
 
 .rating {
@@ -32,20 +32,34 @@
 }
 
 .right-section {
+  background-color: #d3d3d3;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
   width: 75%;
   position: relative;
-  padding-right: 0;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 1rem;
+  padding-left: 10px;
+  padding-right: 100px;
 }
 
 .comment-text {
   font-size: 1rem;
-  font-family: "Montserrat", sans-serif;
   color: #000;
 }
 .comment-date {
   position: absolute;
   right: 10px;
+  top: 1px;
+}
+.comment-interact {
+  position: absolute;
+  right: 10px;
+  bottom: 1px;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  font-size: 1.4rem;
 }

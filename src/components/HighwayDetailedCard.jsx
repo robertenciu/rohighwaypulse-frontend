@@ -10,9 +10,17 @@ import { GrMoney } from "react-icons/gr";
 import { GiReceiveMoney } from "react-icons/gi";
 import "@fontsource/jetbrains-mono";
 import { isDex } from "../utils/highwayUtils";
+import { useAuth } from "./AuthContext";
+import SignInUser from "./SignInUser";
+import SignUpUser from "./SignUpUser";
+import ModelWrapper from "./ModelWrapper";
 
 function HighwayDetailedCard({ highway, selectedComments, onClose }) {
   const [detailedHighway, setDetailedHighway] = useState(null);
+  const { user, loading } = useAuth();
+  const [SignInForm, setSignInForm] = useState(false);
+  const [SignUpForm, setSignUpForm] = useState(false);
+
   useEffect(() => {
     fetch(`http://localhost:8080/highways/${highway.name}`)
       .then((response) => response.json())
@@ -23,6 +31,16 @@ function HighwayDetailedCard({ highway, selectedComments, onClose }) {
   if (!detailedHighway) {
     return;
   }
+  const handleAddComment = () => {
+    if (loading) return;
+    if (!user) {
+      console.log("Please log in before.");
+      setSignInForm(true);
+    } else {
+      // show comment box, modal etc.
+      console.log("User is:", user);
+    }
+  };
 
   const dummyComments = [
     {
@@ -57,6 +75,14 @@ function HighwayDetailedCard({ highway, selectedComments, onClose }) {
           style={isDex(detailedHighway.name)}
         >
           {detailedHighway.name}
+          <div
+            className={styles.cardComments}
+            onClick={() => {
+              handleAddComment();
+            }}
+          >
+            <i className="bi bi-chat-dots"> Add comment</i>
+          </div>
         </div>
 
         <div className={`${styles.cardDescription}`}>
@@ -67,7 +93,13 @@ function HighwayDetailedCard({ highway, selectedComments, onClose }) {
       {selectedComments ? (
         <div>
           {dummyComments.map((user, index) => (
-            <CommentsCard key={index} user={user} />
+            <CommentsCard
+              key={index}
+              user={user}
+              requestLogin={() => {
+                setSignInForm(true);
+              }}
+            />
           ))}
         </div>
       ) : (
@@ -124,6 +156,23 @@ function HighwayDetailedCard({ highway, selectedComments, onClose }) {
             </Col>
           </Row>
         </Card.Body>
+      )}
+      {SignInForm && (
+        <ModelWrapper onClose={() => setSignInForm(false)}>
+          <SignInUser
+            onClose={() => setSignInForm(false)}
+            switchToSignUp={() => {
+              setSignInForm(false);
+              setSignUpForm(true);
+            }}
+          />
+        </ModelWrapper>
+      )}
+
+      {SignUpForm && (
+        <ModelWrapper onClose={() => setSignUpForm(false)}>
+          <SignUpUser onClose={() => setSignUpForm(false)} />
+        </ModelWrapper>
       )}
     </Card>
   );

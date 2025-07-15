@@ -3,7 +3,6 @@ import AllHighwaysPage from "./pages/AllHighwaysPage";
 import HighwayCards from "./components/HighwayCards";
 import Layout from "./components/Layout";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 function App() {
   return (
     <BrowserRouter>

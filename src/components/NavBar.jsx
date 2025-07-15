@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import SignInUser from "./SignInUser";
 import SignUpUser from "./SignUpUser";
+import ModelWrapper from "./ModelWrapper";
 
 function NavBar() {
   const [SignInForm, setSignInForm] = useState(false);
@@ -64,62 +65,21 @@ function NavBar() {
         </Container>
       </Navbar>
       {SignInForm && (
-        <div
-          onClick={() => {
-            setSignInForm(false);
-          }}
-          style={{
-            paddingTop: "80px",
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.35)",
-            backdropFilter: "blur(10px)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 10,
-          }}
-        >
+        <ModelWrapper onClose={() => setSignInForm(false)}>
           <SignInUser
-            onClose={() => {
-              setSignInForm(false);
-            }}
+            onClose={() => setSignInForm(false)}
             switchToSignUp={() => {
               setSignInForm(false);
               setSignUpForm(true);
             }}
-          ></SignInUser>
-        </div>
+          />
+        </ModelWrapper>
       )}
+
       {SignUpForm && (
-        <div
-          onClick={() => {
-            setSignUpForm(false);
-          }}
-          style={{
-            paddingTop: "80px",
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.35)",
-            backdropFilter: "blur(10px)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 10,
-          }}
-        >
-          <SignUpUser
-            onClose={() => {
-              setSignUpForm(false);
-            }}
-          ></SignUpUser>
-        </div>
+        <ModelWrapper onClose={() => setSignUpForm(false)}>
+          <SignUpUser onClose={() => setSignUpForm(false)} />
+        </ModelWrapper>
       )}
     </>
   );

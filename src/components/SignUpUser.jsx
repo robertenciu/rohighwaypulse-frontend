@@ -5,8 +5,46 @@ import Form from "react-bootstrap/Form";
 import { Card, Container, Row, Col } from "react-bootstrap";
 import styles from "./Registration.module.css";
 import { ReactComponent as Logo } from "./Logo.svg";
+import { useState, useEffect } from "react";
 
 function SignUpUser({ onClose }) {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setError("");
+    const payload = {
+      firstName,
+      lastName,
+      email,
+      username,
+      password,
+    };
+    try {
+      const res = await fetch("http://localhost:8080/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        console.log("User successfully registered:", res);
+      } else if (res.status === 401) {
+        setError("Invalid credentials");
+      } else {
+        setError("Something went wrong. Try again.");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Server error.");
+    }
+  };
   return (
     <Card className={`${styles.form}`} onClick={(e) => e.stopPropagation()}>
       <CloseButton onClick={onClose} />
@@ -22,7 +60,7 @@ function SignUpUser({ onClose }) {
         <Logo style={{ height: "73px", width: "120px" }} />
       </div>
 
-      <Form className={`${styles.formText}`}>
+      <Form className={`${styles.formText}`} onSubmit={handleRegister}>
         {/* First Row: First Name & Last Name */}
         <div
           style={{
@@ -40,6 +78,7 @@ function SignUpUser({ onClose }) {
               height: "40px",
               width: "calc(50% - 5px)",
             }}
+            onChange={(e) => setFirstName(e.target.value)}
           />
           <Form.Control
             type="text"
@@ -48,6 +87,7 @@ function SignUpUser({ onClose }) {
               height: "40px",
               width: "calc(50% - 5px)",
             }}
+            onChange={(e) => setLastName(e.target.value)}
           />
         </div>
 
@@ -63,6 +103,7 @@ function SignUpUser({ onClose }) {
               margin: "10px auto",
               height: "40px",
             }}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </Form.Group>
 
@@ -78,6 +119,7 @@ function SignUpUser({ onClose }) {
               margin: "10px auto",
               height: "40px",
             }}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </Form.Group>
 
@@ -93,6 +135,7 @@ function SignUpUser({ onClose }) {
               margin: "10px auto",
               height: "40px",
             }}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
 
@@ -121,7 +164,7 @@ function SignUpUser({ onClose }) {
           }}
         >
           <div className="my-2">
-            <Button variant="success" style={{ width: "20rem" }}>
+            <Button variant="success" style={{ width: "20rem" }} type="submit">
               Sign Up
             </Button>
           </div>
