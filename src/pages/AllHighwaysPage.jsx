@@ -1,13 +1,16 @@
 import HighwayCards from "../components/HighwayCards";
-import NavBar from "../components/NavBar";
-import { useParams, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
 function HighwayPage() {
   const [highways, setHighways] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/highways")
+    const token = localStorage.getItem("token");
+    fetch("http://localhost:8080/highways", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setHighways(data);
@@ -20,6 +23,7 @@ function HighwayPage() {
       <h2 className="my-3 display-3 fade-in text-center">Autostrăzi</h2>
       <hr className="hr"></hr>
       <HighwayCards highways={highways} />
+      {/* Scroll up button to add */}
     </>
   );
 }

@@ -19,18 +19,14 @@ function SignInUser({ onClose, switchToSignUp }) {
     try {
       const res = await fetch("http://localhost:8080/api/auth/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
       });
 
       if (res.ok) {
-        const data = await res.json();
-        console.log("User is logged in:", data);
+        console.log("User is logged in:", res);
+        localStorage.setItem("token", data.token);
 
-        // localStorage.setItem("user", JSON.stringify(data));
       } else if (res.status === 401) {
         setError("Invalid credentials");
       } else {

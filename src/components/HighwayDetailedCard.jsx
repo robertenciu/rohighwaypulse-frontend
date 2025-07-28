@@ -75,14 +75,16 @@ function HighwayDetailedCard({ highway, selectedComments, onClose }) {
           style={isDex(detailedHighway.name)}
         >
           {detailedHighway.name}
-          <div
-            className={styles.cardComments}
-            onClick={() => {
-              handleAddComment();
-            }}
-          >
-            <i className="bi bi-chat-dots"> Add comment</i>
-          </div>
+          {selectedComments && (
+            <div
+              className={styles.cardComments}
+              onClick={() => {
+                handleAddComment();
+              }}
+            >
+              <i className="bi bi-chat-dots"> Add comment</i>
+            </div>
+          )}
         </div>
 
         <div className={`${styles.cardDescription}`}>
