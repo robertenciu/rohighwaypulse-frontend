@@ -29,6 +29,7 @@
 }
 .card {
   background: "radial-gradient(circle,rgba(235, 235, 169, 1) 1%, rgba(209, 142, 142, 0.56) 60%, rgba(191, 172, 124, 0.58) 100%)";
+  box-shadow: -6px 6px 10px rgba(0, 0, 0, 0.65);
 }
 body {
   background-image: url("/public/36242089_8392333.svg");
@@ -72,7 +73,7 @@ body {
 .fade-in {
   opacity: 0;
   transform: translateY(-20px);
-  animation: fadeInUp 0.6s ease forwards;
+  animation: fadeInUp 0.8s ease forwards;
 }
 @keyframes fadeInUp {
   to {

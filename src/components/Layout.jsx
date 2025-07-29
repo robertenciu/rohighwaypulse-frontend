@@ -1,5 +1,6 @@
 import NavBar from "./NavBar";
 import { Outlet } from "react-router-dom";
+import ScrollButton from "./ScrollButton";
 
 function Layout() {
   return (
@@ -7,6 +8,7 @@ function Layout() {
       <NavBar />
       <div style={{ paddingTop: "80px", paddingBottom: "80px" }}>
         <Outlet />
+        <ScrollButton />
       </div>
     </>
   );

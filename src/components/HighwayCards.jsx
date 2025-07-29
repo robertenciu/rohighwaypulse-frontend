@@ -20,7 +20,7 @@ function HighwayCards({ highways }) {
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <Card
-                className="shadow-sm card-hover"
+                className="card-hover"
                 onClick={() => {
                   setSelectedHighway(hw);
                 }}

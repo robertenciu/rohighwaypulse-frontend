@@ -1,4 +1,4 @@
-function ModalWrapper({ onClose, children }) {
+function ModelWrapper({ onClose, children }) {
   const modalOverlayStyle = {
     paddingTop: "80px",
     position: "fixed",
@@ -20,4 +20,4 @@ function ModalWrapper({ onClose, children }) {
   );
 }
 
-export default ModalWrapper;
+export default ModelWrapper;

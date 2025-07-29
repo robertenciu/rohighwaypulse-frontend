@@ -59,6 +59,10 @@ function RomaniaMap() {
   return (
     <>
       <MapContainer
+        style={{
+          borderRadius: "20px",
+          boxShadow: "-10px 10px 10px rgba(0, 0, 0, 0.65)",
+        }}
         center={[45.9432, 24.9668]}
         zoom={7}
         minZoom={7}

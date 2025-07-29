@@ -109,10 +109,11 @@ export default function TotalKmsChart() {
           borderTopLeftRadius: "20px",
           borderTopRightRadius: "20px",
           marginTop: "50px",
+          boxShadow: "-10px 10px 10px rgba(0, 0, 0, 0.65)",
         }}
       >
         <h2 className="my-3 display-3 fade-in text-center">
-          Total kilometrii autostrazi
+          Total kilometri autostrazi
         </h2>
         <hr className="hr" style={{ marginBottom: 0 }}></hr>
       </div>
@@ -124,6 +125,7 @@ export default function TotalKmsChart() {
           margin: "0 auto",
           borderBottomLeftRadius: "20px",
           borderBottomRightRadius: "20px",
+          boxShadow: "-10px 10px 10px rgba(0, 0, 0, 0.65)",
         }}
       >
         <ResponsiveContainer width="100%" height="100%" className="fade-in">
@@ -133,14 +135,14 @@ export default function TotalKmsChart() {
             data={data}
             margin={{
               top: 10,
-              right: 30,
-              left: 0,
-              bottom: 0,
+              right: 20,
+              left: 5,
+              bottom: 5,
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
-            <YAxis />
+            <YAxis tickFormatter={(value) => `${value}km`} />
             <Tooltip />
 
             <Area

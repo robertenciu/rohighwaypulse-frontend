@@ -1,6 +1,5 @@
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
-import logo from "./Logo.svg";
 import { ReactComponent as Logo } from "./Logo.svg";
 import { Link } from "react-router-dom";
 import { useState } from "react";

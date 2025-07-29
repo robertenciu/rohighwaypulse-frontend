@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TotalKmsChart from "../components/TotalKmsChart";
 import RomaniaMap from "../components/RomaniaMap";
+import LazyRenderComponent from "../components/LazyRenzerComponent";
 function HomePage() {
   return (
     <>
@@ -12,7 +13,9 @@ function HomePage() {
       >
         <RomaniaMap />
       </div>
-      <TotalKmsChart />
+      <LazyRenderComponent>
+        <TotalKmsChart />
+      </LazyRenderComponent>
     </>
   );
 }

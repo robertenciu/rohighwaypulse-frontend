@@ -1,5 +1,6 @@
 import HighwayCards from "../components/HighwayCards";
 import React, { useEffect, useState } from "react";
+import Loader from "../components/Loader";
 
 function HighwayPage() {
   const [highways, setHighways] = useState([]);
@@ -18,6 +19,7 @@ function HighwayPage() {
       .catch((error) => console.error("Eroare la fetch:", error));
   }, []);
 
+  if (highways.length === 0) return <Loader />;
   return (
     <>
       <h2 className="my-3 display-3 fade-in text-center">Autostrăzi</h2>
