@@ -1,4 +1,14 @@
+import { createPortal } from "react-dom";
+import { useEffect } from "react";
 function ModelWrapper({ onClose, children }) {
+  useEffect(() => {
+    const originalStyle = window.getComputedStyle(document.body).overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = originalStyle;
+    };
+  }, []);
   const modalOverlayStyle = {
     paddingTop: "80px",
     position: "fixed",
@@ -11,12 +21,13 @@ function ModelWrapper({ onClose, children }) {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    zIndex: 10,
+    zIndex: 100,
   };
-  return (
+  return createPortal(
     <div style={modalOverlayStyle} onClick={onClose}>
       <div onClick={(e) => e.stopPropagation()}>{children}</div>
-    </div>
+    </div>,
+    document.body
   );
 }
 

@@ -26,7 +26,7 @@ const ScrollButton = () => {
   const iconStyle = {
     position: "fixed",
     bottom: "30px",
-    right: "50px",
+    right: "2.3%",
     zIndex: 1000,
     display: visible ? "inline-flex" : "none",
     color: "white",

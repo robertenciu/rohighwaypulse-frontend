@@ -15,14 +15,16 @@ import SignInUser from "./SignInUser";
 import SignUpUser from "./SignUpUser";
 import ModelWrapper from "./ModelWrapper";
 
-function HighwayDetailedCard({ highway, selectedComments, onClose }) {
+function HighwayDetailedCard({ highwayName, selectedComments, onClose }) {
   const [detailedHighway, setDetailedHighway] = useState(null);
+  const [thisselectedComments, setThisSelectedComments] =
+    useState(selectedComments);
   const { user, loading } = useAuth();
   const [SignInForm, setSignInForm] = useState(false);
   const [SignUpForm, setSignUpForm] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/highways/${highway.name}`)
+    fetch(`http://localhost:8080/highways/${highwayName}`)
       .then((response) => response.json())
       .then((data) => setDetailedHighway(data))
       .catch((error) => console.error("Eroare la fetch:", error));
@@ -48,24 +50,23 @@ function HighwayDetailedCard({ highway, selectedComments, onClose }) {
       lastName: "Ionescu",
       avatar: "https://i.pravatar.cc/150?img=3",
       rating: 4,
-      comment: "Un serviciu excelent! Recomand cu încredere.",
+      comment: "Alex Beiu este un student extraordinar",
     },
     {
       firstName: "Andrei",
       lastName: "Popescu",
       avatar: "https://i.pravatar.cc/150?img=5",
       rating: 5,
-      comment: "Totul a decurs perfect. Comunicarea a fost impecabilă.",
+      comment: "Totul a decurs perfect. Comunicarea a fost impecabila.",
     },
     {
       firstName: "Elena",
       lastName: "Marin",
       avatar: "https://i.pravatar.cc/150?img=10",
       rating: 3,
-      comment: "A fost ok, dar se poate și mai bine.",
+      comment: "S a produs o extorsiune a unui degajament!!!",
     },
   ];
-  const now = detailedHighway.percentageCompleted;
   return (
     <Card className="card-detailed" onClick={(e) => e.stopPropagation()}>
       <CloseButton onClick={onClose} />
@@ -75,16 +76,29 @@ function HighwayDetailedCard({ highway, selectedComments, onClose }) {
           style={isDex(detailedHighway.name)}
         >
           {detailedHighway.name}
-          {selectedComments && (
-            <div
-              className={styles.cardComments}
-              onClick={() => {
-                handleAddComment();
-              }}
-            >
-              <i className="bi bi-chat-dots"> Add comment</i>
-            </div>
-          )}
+          <div
+            className={styles.cardCommentsBox}
+            onClick={() => {
+              setThisSelectedComments(true);
+              {
+                thisselectedComments && handleAddComment();
+              }
+            }}
+          >
+            <i className="bi bi-chat-dots">
+              {thisselectedComments ? " Add comment" : " Comments "}
+            </i>
+          </div>
+          <div
+            className={styles.cardDescriptionBox}
+            onClick={() => {
+              setThisSelectedComments(false);
+            }}
+          >
+            {thisselectedComments && (
+              <i className="bi bi-chat-dots"> Description </i>
+            )}
+          </div>
         </div>
 
         <div className={`${styles.cardDescription}`}>
@@ -92,7 +106,8 @@ function HighwayDetailedCard({ highway, selectedComments, onClose }) {
         </div>
       </div>
       <hr className="hr-detailed-card"></hr>
-      {selectedComments ? (
+
+      {thisselectedComments ? (
         <div>
           {dummyComments.map((user, index) => (
             <CommentsCard

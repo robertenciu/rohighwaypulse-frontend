@@ -103,25 +103,42 @@ export default function TotalKmsChart() {
     <>
       <div
         style={{
-          backgroundColor: "rgba(255, 255, 255, 0.8)",
+          background: "#abbaab",
+          background: `linear-gradient(
+            90deg,
+            rgba(235, 235, 235, 0.8) 0%,
+            rgba(255, 255, 255, 0.8) 100%
+          )`,
           margin: "0 auto",
-          width: "70%",
+          width: "90%",
           borderTopLeftRadius: "20px",
           borderTopRightRadius: "20px",
           marginTop: "50px",
           boxShadow: "-10px 10px 10px rgba(0, 0, 0, 0.65)",
         }}
       >
-        <h2 className="my-3 display-3 fade-in text-center">
+        <h2
+          className="my-3 display-3 fade-in text-center"
+          style={{
+            fontSize: "clamp(1rem, 5vw, 4rem)",
+          }}
+        >
           Total kilometri autostrazi
         </h2>
         <hr className="hr" style={{ marginBottom: 0 }}></hr>
       </div>
       <div
         style={{
-          width: "70%",
-          height: "70vh",
-          backgroundColor: "rgba(255, 255, 255, 0.8)",
+          width: "90%",
+          maxHeight: "60vh",
+          aspectRatio: "16 / 9",
+          background: "#2980B9",
+          background: `linear-gradient(
+            90deg,
+            rgba(171, 186, 171, 0.9) 0%,
+            rgba(255, 255, 255, 0.9) 100%
+          )`,
+
           margin: "0 auto",
           borderBottomLeftRadius: "20px",
           borderBottomRightRadius: "20px",

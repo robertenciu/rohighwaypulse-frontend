@@ -3,7 +3,7 @@ import React, { useRef, useEffect, useState } from "react";
 const LazyRenderComponent = ({
   children,
   threshold = 0.4,
-  minHeight = "500px",
+  minHeight = "600px",
 }) => {
   const containerRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);

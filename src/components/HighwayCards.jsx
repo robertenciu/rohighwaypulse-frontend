@@ -6,6 +6,7 @@ import CommentsCard from "./CommentsCard";
 import "@fontsource/jetbrains-mono";
 import { useParams, useNavigate } from "react-router-dom";
 import { isDex } from "../utils/highwayUtils";
+import ModelWrapper from "./ModelWrapper";
 
 function HighwayCards({ highways }) {
   const [selectedHighway, setSelectedHighway] = useState(null);
@@ -80,34 +81,21 @@ function HighwayCards({ highways }) {
         </Row>
       </Container>
       {selectedHighway && (
-        <div
-          onClick={() => {
+        <ModelWrapper
+          onClose={() => {
             setSelectedHighway(null);
             setSelectedComments(false);
           }}
-          style={{
-            paddingTop: "80px",
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.35)",
-            backdropFilter: "blur(10px)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
         >
           <HighwayDetailedCard
-            highway={selectedHighway}
+            highwayName={selectedHighway.name}
             selectedComments={selectedComments}
             onClose={() => {
               setSelectedHighway(null);
               setSelectedComments(false);
             }}
           />
-        </div>
+        </ModelWrapper>
       )}
     </>
   );

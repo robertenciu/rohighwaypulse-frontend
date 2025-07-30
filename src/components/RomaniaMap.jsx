@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import ReactDOMServer from "react-dom/server";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import motorways from "../utils/Highways.json";
 import expressways from "../utils/ExpressWays.json";
@@ -9,11 +10,51 @@ import {
   HighwayDrawStyle,
   BridgeTunnelDrawStyle,
 } from "../utils/HighwayDrawStyle";
+import HighwayDetailedCard from "./HighwayDetailedCard";
+import ModelWrapper from "./ModelWrapper";
+import { isDex } from "../utils/highwayUtils";
+
+const highwayTooltip = (highwayName) => {
+  return ReactDOMServer.renderToStaticMarkup(
+    <div
+      style={{
+        color: "white",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: "3rem",
+        fontWeight: "bold",
+        height: "5rem",
+        width: "10rem",
+        cursor: "default",
+        ...isDex(highwayName),
+      }}
+    >
+      {highwayName}
+    </div>
+  );
+};
+
+const onHighwayClick = (highway, onClose) => {
+  return (
+    <>
+      <ModelWrapper onClose={onClose}>
+        <HighwayDetailedCard
+          highwayName={highway}
+          selectedComments={false}
+          onClose={onClose}
+        ></HighwayDetailedCard>
+      </ModelWrapper>
+    </>
+  );
+};
+
 function RomaniaMap() {
   const highwayGroups = useRef(new Map());
   const [zoom, setZoom] = useState(7);
+  const [selectedHighway, setSelectedHighway] = useState(null);
 
-  const onEachFeature = (feature, layer) => {
+  const onEachFeature = (feature, layer, onClose) => {
     if (!feature.properties.ref && !feature.properties.name) {
       return;
     }
@@ -23,19 +64,17 @@ function RomaniaMap() {
       highwayGroups.current.set(key, []);
     }
     highwayGroups.current.get(key).push(layer);
+
+    if (feature.properties) {
+      layer.bindTooltip(highwayTooltip(key), {
+        permanent: false,
+        direction: "top",
+        opacity: 0.8,
+        offset: [0, -10],
+      });
+    }
+
     const initialWeight = layer.options.weight;
-    // if (feature.properties) {
-    //   const tooltipContent = Object.entries(feature.properties)
-    //     .filter(([_, value]) => typeof value !== "object" && value !== null)
-    //     .map(([key, value]) => `<b>${key}</b>: ${value}`)
-    //     .join("<br>");
-    //   layer.bindTooltip(tooltipContent, {
-    //     permanent: false,
-    //     direction: "top",
-    //     opacity: 0.8,
-    //     offset: [0, -10],
-    //   });
-    // }
     layer.on({
       mouseover: (e) => {
         e.target.openTooltip();
@@ -48,6 +87,9 @@ function RomaniaMap() {
         highwayGroups.current.get(key).forEach((l) => {
           l.setStyle({ weight: initialWeight });
         });
+      },
+      click: (e) => {
+        setSelectedHighway(feature.properties.ref || feature.properties.name);
       },
     });
   };
@@ -94,6 +136,10 @@ function RomaniaMap() {
         />
         <Legend />
       </MapContainer>
+      {selectedHighway &&
+        onHighwayClick(selectedHighway, () => {
+          setSelectedHighway(null);
+        })}
     </>
   );
 }
