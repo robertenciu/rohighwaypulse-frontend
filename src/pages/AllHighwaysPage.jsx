@@ -25,7 +25,6 @@ function HighwayPage() {
       <h2 className="my-3 display-3 fade-in text-center">Autostrăzi</h2>
       <hr className="hr"></hr>
       <HighwayCards highways={highways} />
-      {/* Scroll up button to add */}
     </>
   );
 }

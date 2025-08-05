@@ -1,0 +1,3 @@
+highway=motorway or (highway=construction and construction=motorway) or (highway=proposed and proposed=motorway) in Romania
+ref~"^DEx" and (highway=trunk or highway=proposed or highway=construction) in Romania
+(highway=motorway or (highway=construction and construction=motorway) or (highway=proposed and proposed=motorway)) or (ref~"^DEx" and (highway=trunk or highway=proposed or highway=construction)) in Romania

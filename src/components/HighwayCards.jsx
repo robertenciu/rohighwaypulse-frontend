@@ -81,21 +81,14 @@ function HighwayCards({ highways }) {
         </Row>
       </Container>
       {selectedHighway && (
-        <ModelWrapper
+        <HighwayDetailedCard
+          highwayName={selectedHighway.name}
+          selectedComments={selectedComments}
           onClose={() => {
             setSelectedHighway(null);
             setSelectedComments(false);
           }}
-        >
-          <HighwayDetailedCard
-            highwayName={selectedHighway.name}
-            selectedComments={selectedComments}
-            onClose={() => {
-              setSelectedHighway(null);
-              setSelectedComments(false);
-            }}
-          />
-        </ModelWrapper>
+        />
       )}
     </>
   );

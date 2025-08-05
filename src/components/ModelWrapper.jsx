@@ -21,7 +21,7 @@ function ModelWrapper({ onClose, children }) {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    zIndex: 100,
+    zIndex: 1000,
   };
   return createPortal(
     <div style={modalOverlayStyle} onClick={onClose}>

@@ -14,6 +14,7 @@ import { useAuth } from "./AuthContext";
 import SignInUser from "./SignInUser";
 import SignUpUser from "./SignUpUser";
 import ModelWrapper from "./ModelWrapper";
+import Loader from "./Loader";
 
 function HighwayDetailedCard({ highwayName, selectedComments, onClose }) {
   const [detailedHighway, setDetailedHighway] = useState(null);
@@ -31,7 +32,7 @@ function HighwayDetailedCard({ highwayName, selectedComments, onClose }) {
   }, []);
 
   if (!detailedHighway) {
-    return;
+    return <Loader />;
   }
   const handleAddComment = () => {
     if (loading) return;
@@ -68,130 +69,132 @@ function HighwayDetailedCard({ highwayName, selectedComments, onClose }) {
     },
   ];
   return (
-    <Card className="card-detailed" onClick={(e) => e.stopPropagation()}>
-      <CloseButton onClick={onClose} />
-      <div style={{ display: "flex", width: "100%" }}>
-        <div
-          className={`${styles.highwaySign}`}
-          style={isDex(detailedHighway.name)}
-        >
-          {detailedHighway.name}
+    <ModelWrapper onClose={onClose}>
+      <Card className="card-detailed" onClick={(e) => e.stopPropagation()}>
+        <CloseButton onClick={onClose} />
+        <div style={{ display: "flex", width: "100%" }}>
           <div
-            className={styles.cardCommentsBox}
-            onClick={() => {
-              setThisSelectedComments(true);
-              {
-                thisselectedComments && handleAddComment();
-              }
-            }}
+            className={`${styles.highwaySign}`}
+            style={isDex(detailedHighway.name)}
           >
-            <i className="bi bi-chat-dots">
-              {thisselectedComments ? " Add comment" : " Comments "}
-            </i>
+            {detailedHighway.name}
+            <div
+              className={styles.cardCommentsBox}
+              onClick={() => {
+                setThisSelectedComments(true);
+                {
+                  thisselectedComments && handleAddComment();
+                }
+              }}
+            >
+              <i className="bi bi-chat-dots">
+                {thisselectedComments ? " Add comment" : " Comments "}
+              </i>
+            </div>
+            <div
+              className={styles.cardDescriptionBox}
+              onClick={() => {
+                setThisSelectedComments(false);
+              }}
+            >
+              {thisselectedComments && (
+                <i className="bi bi-chat-dots"> Description </i>
+              )}
+            </div>
           </div>
-          <div
-            className={styles.cardDescriptionBox}
-            onClick={() => {
-              setThisSelectedComments(false);
-            }}
-          >
-            {thisselectedComments && (
-              <i className="bi bi-chat-dots"> Description </i>
-            )}
+
+          <div className={`${styles.cardDescription}`}>
+            {detailedHighway.description}
           </div>
         </div>
+        <hr className="hr-detailed-card"></hr>
 
-        <div className={`${styles.cardDescription}`}>
-          {detailedHighway.description}
-        </div>
-      </div>
-      <hr className="hr-detailed-card"></hr>
-
-      {thisselectedComments ? (
-        <div>
-          {dummyComments.map((user, index) => (
-            <CommentsCard
-              key={index}
-              user={user}
-              requestLogin={() => {
-                setSignInForm(true);
+        {thisselectedComments ? (
+          <div>
+            {dummyComments.map((user, index) => (
+              <CommentsCard
+                key={index}
+                user={user}
+                requestLogin={() => {
+                  setSignInForm(true);
+                }}
+              />
+            ))}
+          </div>
+        ) : (
+          <Card.Body className={`${styles.cardBody}`}>
+            <Row>
+              <Col className="align-text-center">
+                <IoMdConstruct style={{ marginRight: "10px" }} />
+                Status: {detailedHighway.status}
+              </Col>
+            </Row>
+            <Row>
+              <Col className="align-text-center">
+                <ProgressBar
+                  animated
+                  variant="success"
+                  now={detailedHighway.percentageCompleted}
+                  label={`${detailedHighway.percentageCompleted}%`}
+                  style={{ width: "50%", marginRight: "50px" }}
+                />
+                {detailedHighway.completedLength}/{detailedHighway.length} km.
+              </Col>
+            </Row>
+            <hr className="hr-detailed-card"></hr>
+            <Row>
+              <Col className="align-text-center bordered-right-animated">
+                <CiLocationArrow1 />
+                Pornire: {detailedHighway.startCity}
+              </Col>
+              <Col className="align-text-center">
+                <CiLocationArrow1 />
+                Destinație: {detailedHighway.endCity}
+              </Col>
+            </Row>
+            <hr className="hr-detailed-card"></hr>
+            <Row>
+              <Col className="align-text-center bordered-right-animated">
+                <span>
+                  <GrMoney style={{ marginRight: "10px" }} />
+                  Buget: {detailedHighway.totalBudget}
+                </span>
+              </Col>
+              <Col className="align-text-center">
+                <span>
+                  <GiReceiveMoney style={{ marginRight: "10px" }} />
+                  Finanțare: {detailedHighway.fundingSource}
+                </span>
+              </Col>
+            </Row>
+            <hr className="hr-detailed-card"></hr>
+            <Row>
+              <Col className="align-text-center">
+                <i class="bi bi-calendar3" style={{ marginRight: "10px" }}></i>
+                An deschidere: {detailedHighway.estimatedCompletionYear}
+              </Col>
+            </Row>
+          </Card.Body>
+        )}
+        {SignInForm && (
+          <ModelWrapper onClose={() => setSignInForm(false)}>
+            <SignInUser
+              onClose={() => setSignInForm(false)}
+              switchToSignUp={() => {
+                setSignInForm(false);
+                setSignUpForm(true);
               }}
             />
-          ))}
-        </div>
-      ) : (
-        <Card.Body className={`${styles.cardBody}`}>
-          <Row>
-            <Col className="align-text-center">
-              <IoMdConstruct style={{ marginRight: "10px" }} />
-              Status: {detailedHighway.status}
-            </Col>
-          </Row>
-          <Row>
-            <Col className="align-text-center">
-              <ProgressBar
-                animated
-                variant="success"
-                now={detailedHighway.percentageCompleted}
-                label={`${detailedHighway.percentageCompleted}%`}
-                style={{ width: "50%", marginRight: "50px" }}
-              />
-              {detailedHighway.completedLength}/{detailedHighway.length} km.
-            </Col>
-          </Row>
-          <hr className="hr-detailed-card"></hr>
-          <Row>
-            <Col className="align-text-center bordered-right-animated">
-              <CiLocationArrow1 />
-              Pornire: {detailedHighway.startCity}
-            </Col>
-            <Col className="align-text-center">
-              <CiLocationArrow1 />
-              Destinație: {detailedHighway.endCity}
-            </Col>
-          </Row>
-          <hr className="hr-detailed-card"></hr>
-          <Row>
-            <Col className="align-text-center bordered-right-animated">
-              <span>
-                <GrMoney style={{ marginRight: "10px" }} />
-                Buget: {detailedHighway.totalBudget}
-              </span>
-            </Col>
-            <Col className="align-text-center">
-              <span>
-                <GiReceiveMoney style={{ marginRight: "10px" }} />
-                Finanțare: {detailedHighway.fundingSource}
-              </span>
-            </Col>
-          </Row>
-          <hr className="hr-detailed-card"></hr>
-          <Row>
-            <Col className="align-text-center">
-              <i class="bi bi-calendar3" style={{ marginRight: "10px" }}></i>
-              An deschidere: {detailedHighway.estimatedCompletionYear}
-            </Col>
-          </Row>
-        </Card.Body>
-      )}
-      {SignInForm && (
-        <ModelWrapper onClose={() => setSignInForm(false)}>
-          <SignInUser
-            onClose={() => setSignInForm(false)}
-            switchToSignUp={() => {
-              setSignInForm(false);
-              setSignUpForm(true);
-            }}
-          />
-        </ModelWrapper>
-      )}
+          </ModelWrapper>
+        )}
 
-      {SignUpForm && (
-        <ModelWrapper onClose={() => setSignUpForm(false)}>
-          <SignUpUser onClose={() => setSignUpForm(false)} />
-        </ModelWrapper>
-      )}
-    </Card>
+        {SignUpForm && (
+          <ModelWrapper onClose={() => setSignUpForm(false)}>
+            <SignUpUser onClose={() => setSignUpForm(false)} />
+          </ModelWrapper>
+        )}
+      </Card>
+    </ModelWrapper>
   );
 }
 
