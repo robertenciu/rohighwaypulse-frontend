@@ -225,3 +225,16 @@ label {
   height: 77vh;
   width: 90%;
 }
+.photo {
+  width: 420px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.photo:hover {
+  transform: scale(1.07);
+}
+
+.photo-detailed {
+  animation: pop-in 0.5s;
+}

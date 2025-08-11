@@ -34,8 +34,16 @@ function NavBar() {
                 Autostrăzi
               </Link>
             </span>
+            <span style={{ marginRight: "30px" }}>
+              <Link to="/photos" style={{ all: "unset", cursor: "pointer" }}>
+                <i
+                  className="bi bi-image"
+                  style={{ fontSize: "1.3em", marginRight: "7px" }}
+                ></i>
+                Fotografii
+              </Link>
+            </span>
           </div>
-
           {/* Logo */}
           <Link
             to="/"
