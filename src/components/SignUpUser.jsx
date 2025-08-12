@@ -68,31 +68,61 @@ function SignUpUser({ onClose }) {
             justifyContent: "center",
             gap: "10px",
             maxWidth: "400px",
-            margin: "10px auto",
+            margin: "2px auto",
           }}
         >
-          <Form.Control
-            type="text"
-            placeholder="First Name"
-            style={{
-              height: "40px",
-              width: "calc(50% - 5px)",
-            }}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-          <Form.Control
-            type="text"
-            placeholder="Last Name"
-            style={{
-              height: "40px",
-              width: "calc(50% - 5px)",
-            }}
-            onChange={(e) => setLastName(e.target.value)}
-          />
+          <div style={{ width: "calc(50% - 5px)" }}>
+            <div
+              style={{
+                fontSize: "0.85rem",
+                marginBottom: "4px",
+                paddingLeft: "2px",
+                color: "#555",
+              }}
+            >
+              First Name
+            </div>
+            <Form.Control
+              type="text"
+              placeholder="First Name"
+              style={{ height: "40px", width: "100%" }}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </div>
+          <div style={{ width: "calc(50% - 5px)" }}>
+            <div
+              style={{
+                fontSize: "0.85rem",
+                marginBottom: "4px",
+                paddingLeft: "2px",
+                color: "#555",
+              }}
+            >
+              Last Name
+            </div>
+            <Form.Control
+              type="text"
+              placeholder="Last Name"
+              style={{ height: "40px", width: "100%" }}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </div>
         </div>
 
         {/* Username */}
         <Form.Group controlId="formUsername">
+          <div
+            style={{
+              fontSize: "0.85rem",
+              marginBottom: "2px",
+              color: "#555",
+              maxWidth: "400px",
+              margin: "2px auto",
+              paddingLeft: "2px",
+            }}
+          >
+            Username
+          </div>
           <Form.Control
             type="text"
             placeholder="Username"
@@ -100,7 +130,7 @@ function SignUpUser({ onClose }) {
               marginTop: "10px",
               width: "100%",
               maxWidth: "400px",
-              margin: "10px auto",
+              margin: "2px auto",
               height: "40px",
             }}
             onChange={(e) => setUsername(e.target.value)}
@@ -109,6 +139,18 @@ function SignUpUser({ onClose }) {
 
         {/* Email */}
         <Form.Group controlId="formBasicEmail">
+          <div
+            style={{
+              fontSize: "0.85rem",
+              marginBottom: "2px",
+              color: "#555",
+              maxWidth: "400px",
+              margin: "2px auto",
+              paddingLeft: "2px",
+            }}
+          >
+            Email
+          </div>
           <Form.Control
             type="email"
             placeholder="Email"
@@ -116,7 +158,7 @@ function SignUpUser({ onClose }) {
               marginTop: "10px",
               width: "100%",
               maxWidth: "400px",
-              margin: "10px auto",
+              margin: "2px auto",
               height: "40px",
             }}
             onChange={(e) => setEmail(e.target.value)}
@@ -125,6 +167,18 @@ function SignUpUser({ onClose }) {
 
         {/* Password */}
         <Form.Group controlId="formBasicPassword">
+          <div
+            style={{
+              fontSize: "0.85rem",
+              marginBottom: "2px",
+              color: "#555",
+              maxWidth: "400px",
+              margin: "2px auto",
+              paddingLeft: "2px",
+            }}
+          >
+            Password
+          </div>
           <Form.Control
             type="password"
             placeholder="Password"
@@ -132,7 +186,7 @@ function SignUpUser({ onClose }) {
               marginTop: "10px",
               width: "100%",
               maxWidth: "400px",
-              margin: "10px auto",
+              margin: "2px auto",
               height: "40px",
             }}
             onChange={(e) => setPassword(e.target.value)}
@@ -141,6 +195,18 @@ function SignUpUser({ onClose }) {
 
         {/* Confirm Password */}
         <Form.Group controlId="formConfirmPassword">
+          <div
+            style={{
+              fontSize: "0.85rem",
+              marginBottom: "2px",
+              color: "#555",
+              maxWidth: "400px",
+              margin: "2px auto",
+              paddingLeft: "2px",
+            }}
+          >
+            Confirm Password
+          </div>
           <Form.Control
             type="password"
             placeholder="Confirm Password"
@@ -148,7 +214,7 @@ function SignUpUser({ onClose }) {
               marginTop: "10px",
               width: "100%",
               maxWidth: "400px",
-              margin: "10px auto",
+              margin: "2px auto",
               height: "40px",
             }}
           />
